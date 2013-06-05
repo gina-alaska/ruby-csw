@@ -5,7 +5,7 @@ require 'rcsw/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rcsw"
-  spec.version       = Rcsw::VERSION
+  spec.version       = RCSW::VERSION
   spec.authors       = ["Will Fisher"]
   spec.email         = ["will@teknofire.net"]
   spec.description   = %q{Ruby parser for OGC CSW requests}

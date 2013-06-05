@@ -1,4 +1,4 @@
-# Rcsw
+# RCSW
 
 TODO: Write a gem description
 

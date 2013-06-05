@@ -3,7 +3,7 @@ require 'open-uri'
 require 'ostruct'
 require 'active_support/all'
 
-module Rcsw
+module RCSW
   module XML
     class Base
       class << self

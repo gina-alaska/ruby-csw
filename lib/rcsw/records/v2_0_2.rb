@@ -1,4 +1,4 @@
-module Rcsw
+module RCSW
   module Records
     class V2_0_2 < Base
       self.version = '2.0.2'

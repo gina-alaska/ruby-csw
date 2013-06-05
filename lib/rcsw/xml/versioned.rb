@@ -1,4 +1,4 @@
-module Rcsw
+module RCSW
   module XML
     class Versioned < Base
       def initialize

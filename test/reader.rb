@@ -2,7 +2,7 @@ $: << File.join(File.dirname(__FILE__), '../lib')
 
 require 'rcsw'
 
-client = Rcsw::Client::Base.new('http://seakgis03.alaska.edu/geoportal/csw')
+client = RCSW::Client::Base.new('http://seakgis03.alaska.edu/geoportal/csw')
 
 # 
 # client.capabilities.operations.each do |op|

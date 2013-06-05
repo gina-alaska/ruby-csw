@@ -1,7 +1,7 @@
 require 'curb'
 require 'cgi'
 
-module Rcsw
+module RCSW
   module Client
     class Base
       def initialize(csw_url)
@@ -11,7 +11,7 @@ module Rcsw
       
       def clear!
         @capabilities = nil
-        @records = []
+        @records = nil
         @__start = nil
       end
       
@@ -19,7 +19,7 @@ module Rcsw
         return @capabilities if @capabilities
         
         doc = Curl.get(self.class.build_url(@csw_url)).body_str
-        format = Rcsw::Capabilities::Base.new
+        format = RCSW::Capabilities::Base.new
 
         @capabilities = format.read(doc)
         @capabilities
@@ -53,7 +53,7 @@ module Rcsw
           'outputSchema' => "http://www.opengis.net/cat/csw/2.0.2"
         }
         
-        format = Rcsw::Records::Base.new
+        format = RCSW::Records::Base.new
         request_url = self.class.build_url(@csw_url, 'GetRecords', capabilities.version, @__request_params)
         @__request = format.read(Curl.get(request_url).body_str)
         

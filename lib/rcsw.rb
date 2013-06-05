@@ -4,6 +4,6 @@ require "rcsw/capabilities"
 require "rcsw/client"
 require "rcsw/record"
 
-module Rcsw
+module RCSW
   # Your code goes here...
 end

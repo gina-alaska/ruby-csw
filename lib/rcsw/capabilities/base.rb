@@ -1,6 +1,6 @@
-module Rcsw
+module RCSW
   module Capabilities
-    class Base < ::Rcsw::XML::Versioned
+    class Base < ::RCSW::XML::Versioned
       def initialize
         super
       end
