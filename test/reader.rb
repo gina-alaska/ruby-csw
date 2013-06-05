@@ -1,6 +1,6 @@
 $: << File.join(File.dirname(__FILE__), '../lib')
 
-require 'rcsw.rb'
+require 'rcsw'
 
 client = Rcsw::Client::Base.new('http://seakgis03.alaska.edu/geoportal/csw')
 
