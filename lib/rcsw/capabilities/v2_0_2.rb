@@ -23,14 +23,16 @@ module Rcsw
               obj.abstract = child_value(node)
             },
             'OperationsMetadata' => lambda { |node, obj|
-              obj.operations ||= []
-              obj.parameters ||= []
-              obj.constraints ||= []
+              # obj.operations ||= []
+              # obj.parameters ||= []
+              # obj.constraints ||= []
               
               read_child_nodes(node, obj)
             },
             'Operation' => lambda { |node, obj| 
-              operations = obj.operations || obj
+              obj.operations ||= []
+              
+              # operations = obj.operations || obj
               
               operation = OpenStruct.new({
                 name: node['name'],
@@ -38,10 +40,11 @@ module Rcsw
                 constraints: []
               })
               read_child_nodes(node, operation)
-              operations << operation
+              obj.operations << operation
             },
             'Constraint' => lambda { |node, obj|
-              constraints = obj.constraints || obj
+              obj.constraints ||= []
+              # constraints = obj.constraints || obj
               
               constraint = OpenStruct.new({
                 name: node['name'],
@@ -49,10 +52,11 @@ module Rcsw
               })
               read_child_nodes(node, constraint)
               
-              constraints << constraint
+              obj.constraints << constraint
             },
             'Parameter' => lambda { |node, obj|
-              params = obj.parameters || obj
+              obj.parameters ||= []
+              # params = obj.parameters || obj
               
               param = OpenStruct.new({
                 name: node['name'],
@@ -60,12 +64,13 @@ module Rcsw
               })
               read_child_nodes(node, param)
               
-              params << param
+              obj.parameters << param
             },
             'Value' => lambda { |node, obj| 
-              values = obj.values || obj
+              obj.values ||= []
+              # values = obj.values || obj
               
-              values << child_value(node)
+              obj.values << child_value(node)
             }
             
           }
