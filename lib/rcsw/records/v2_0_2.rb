@@ -6,7 +6,7 @@ module RCSW
       def initialize
         super
         
-        @xml_readers = xml_readers.merge({
+        node_readers.merge!({
           'csw' => {
             'GetRecordsResponse' => lambda { |node, obj|
               obj ||= OpenStruct.new
@@ -71,7 +71,6 @@ module RCSW
             },
             'subject' => lambda { |node, obj|
               obj.subjects ||= []
-              
               obj.subjects << child_value(node)
             },
             'modified' => lambda { |node, obj|

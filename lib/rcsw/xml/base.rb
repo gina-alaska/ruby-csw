@@ -10,21 +10,20 @@ module RCSW
         attr_accessor :version
       end
       
-      attr_accessor :xml_readers
+      attr_accessor :node_readers
       
       def initialize
-        @xml_readers = {}
+        @node_readers = {}
       end
       
       def read_node(node, obj)
-        if (obj.nil?)
-          obj = OpenStruct.new
-        end
-
-        reader = xml_readers['csw'][node.name]
+        obj = OpenStruct.new if obj.nil?
+        
+        reader = node_readers['csw'][node.name]
         if (reader)
           reader.call(node, obj)
         end
+        
         obj
       end
 

@@ -1,4 +1,4 @@
-module Rcsw
+module RCSW
   module Capabilities
     class V2_0_2 < Base
       self.version = '2.0.2'
@@ -6,7 +6,7 @@ module Rcsw
       def initialize
         super
         
-        @xml_readers = xml_readers.merge({
+        node_readers.merge!({
           'csw' => {
             'Capabilities' => lambda { |node,obj|
               obj ||= OpenStruct.new
