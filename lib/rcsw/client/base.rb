@@ -4,14 +4,15 @@ require 'cgi'
 module Rcsw
   module Client
     class Base
-      attr_accessor :results
-      
       def initialize(csw_url)
         @csw_url = csw_url
+        self.clear!
+      end
+      
+      def clear!
         @capabilities = nil
-        @current_request = nil
-        @results = []
-        
+        @records = []
+        @__start = nil
       end
       
       def capabilities
@@ -24,25 +25,18 @@ module Rcsw
         @capabilities
       end
       
-      def get_records(search = nil, limit = 5)
+      def records
+        @records ||= self.get_records
+      end
+      
+      def get_records(limit = 100)
         unless capabilities.operations.collect(&:name).include?('GetRecords')
           raise "Operation not supported by target CSW"
         end
-
-        @request_params = nil
-        @start = nil
         
-        params = {
-          'maxRecords' => limit,
-          'resultType' => 'results',
-          'outputFormat' => 'application/xml',
-          'outputSchema' => "http://www.opengis.net/cat/csw/2.0.2"
-        } 
-      
-        # records = self.fetch_records(@csw_url, 'GetRecords', capabilities.version, params)
-        # results << records.results unless records.status.returned_total 
+        self.clear!
         
-        while records = self.fetch_records do
+        while records = self.fetch_records(limit) do
           results << records.records
         end
         
@@ -50,9 +44,9 @@ module Rcsw
       end
       
       def fetch_records(limit = 100)
-        @start ||= 1
-        @request_params ||= {
-          'startPosition' => @start,
+        @__start ||= 1
+        @__request_params ||= {
+          'startPosition' => @__start,
           'maxRecords' => limit,
           'resultType' => 'results',
           'outputFormat' => 'application/xml',
@@ -60,13 +54,13 @@ module Rcsw
         }
         
         format = Rcsw::Records::Base.new
-        request_url = self.class.build_url(@csw_url, 'GetRecords', capabilities.version, @request_params)
-        @request = format.read(Curl.get(request_url).body_str)
+        request_url = self.class.build_url(@csw_url, 'GetRecords', capabilities.version, @__request_params)
+        @__request = format.read(Curl.get(request_url).body_str)
         
-        return false if @request.records.empty?
+        return false if @__request.records.empty?
         
-        @request_params.merge!({ 'startPosition' => @request.status.next_record })        
-        @request
+        @__request_params.merge!({ 'startPosition' => @__request.status.next_record })        
+        @__request
       end
       
       class << self
