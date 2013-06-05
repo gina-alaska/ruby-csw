@@ -12,5 +12,9 @@ client = RCSW::Client::Base.new('http://seakgis03.alaska.edu/geoportal/csw')
 
 # puts client.capabilities.operations.collect(&:name)
 
-results = client.get_records
-puts results.count
+puts client.records.count
+puts client.records.count
+
+client.clear!
+
+puts client.records

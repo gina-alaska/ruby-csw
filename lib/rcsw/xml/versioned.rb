@@ -12,12 +12,11 @@ module RCSW
         xml_parser = LibXML::XML::Parser.io(data)
         xml = xml_parser.parse
         root = xml.root
+        
         version = get_version(root)
-        # 
         parser = get_parser(version)
         
-        capabilities = OpenStruct.new
-        capabilities = parser.read_node(root, capabilities)
+        capabilities = parser.read_node(root, nil)
         capabilities.version = version
         capabilities
       end
