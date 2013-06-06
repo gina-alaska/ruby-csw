@@ -29,10 +29,12 @@ module RCSW
       end
       
       def each(&block)
-        self.all.each do |item|
-          yield item
-        end
-      end      
+        self.all.each(&block)
+      end
+      
+      def collect(&block)
+        self.all.collect(&block)
+      end     
     end
   end
 end

@@ -24,7 +24,7 @@ module RCSW
         end
 
         results
-      end 
+      end
       
       def fetch_records
         @per_page ||= 100
