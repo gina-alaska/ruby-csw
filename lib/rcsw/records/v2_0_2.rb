@@ -12,6 +12,18 @@ module RCSW
               obj ||= OpenStruct.new
               read_child_nodes(node, obj)
             },
+            'GetRecordByIdResponse' => lambda { |node, obj|
+              obj ||= OpenStruct.new
+              obj.records = [] 
+              read_child_nodes(node, obj)
+            },
+            'Record' => lambda {|node, obj|
+              records = obj.records
+              record = OpenStruct.new
+              
+              read_child_nodes(node,record)
+              records << record
+            },
             'SearchStatus' => lambda { |node, obj| 
               obj.status = OpenStruct.new({
                 timestamp: node['timestamp']

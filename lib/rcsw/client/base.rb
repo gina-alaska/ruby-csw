@@ -13,6 +13,10 @@ module RCSW
         RCSW::Client::GetRecords.new(@csw_url)
       end
       
+      def record(ids=[])
+        RCSW::Client::GetRecordById.new(@csw_url, ids)
+      end
+      
       def capabilities
         RCSW::Client::Capabilities.new(@csw_url)
       end      
