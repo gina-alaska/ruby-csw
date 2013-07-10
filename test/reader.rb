@@ -24,13 +24,13 @@ puts records.count
 puts "Count took #{Time.now - start} seconds"
 
 start = Time.now
-records.each do |r|
-  puts r.title
-  #puts r.inspect
-end
+# records.each do |r|
+#   puts r.title
+#   #puts r.inspect
+# end
 puts "Fetching records took #{Time.now - start} seconds"
 
-puts records.collect(&:title).inspect
+#puts records.collect(&:title).inspect
 
 puts "Testing GetRecordById"
 ids = records.collect{|r| r.identifier}
@@ -38,9 +38,6 @@ start = Time.now
 
 records_by_id = client.record(ids)
 
-records_by_id.each do |r|
-  puts r.inspect
-end
 puts "Fetching #{records_by_id.count} records took #{Time.now - start} seconds"
 
 
