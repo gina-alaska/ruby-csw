@@ -17,6 +17,7 @@ module RCSW
         parser = get_parser(version)
         
         capabilities = parser.read_node(root, nil)
+        
         capabilities.version = version
         capabilities
       end
