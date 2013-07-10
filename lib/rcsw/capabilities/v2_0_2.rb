@@ -71,8 +71,29 @@ module RCSW
               # values = obj.values || obj
               
               obj.values << child_value(node)
+            },
+            'Keywords' => lambda { |node,obj|
+              obj.keywords ||= []
+              
+              read_child_nodes(node, obj)
+            },
+            'Keyword' => lambda{ |node, obj|
+              obj.keywords ||= []
+              
+              obj.keywords << child_value(node)
+            },
+            'ServiceType' => lambda{ |node, obj|
+              obj.service_type = child_value(node)
+            },
+            'ServiceTypeVersion' => lambda{ |node, obj|
+              obj.service_type_version = child_value(node)
+            },
+            'Fees' => lambda{ |node, obj|
+              obj.fees = child_value(node)
+            },
+            'AccessConstraints' => lambda{ |node, obj|
+              obj.access_constraints = child_value(node)
             }
-            
           }
         })
       end
