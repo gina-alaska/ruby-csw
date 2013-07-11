@@ -18,7 +18,37 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+#### Connect to a CSW endpoint
+
+```Ruby
+    require 'rcsw'
+    client = RCSW::Client::Base.new('http://seakgis03.alaska.edu/geoportal/csw')
+```
+
+#### Get Capabilities
+
+```Ruby
+    client.capabilities.each |capability|
+      puts capability
+    end
+```
+
+#### Get Records
+
+```Ruby
+    client.records.each do |record|
+      puts "#{record.title} - #{record.subject}"
+    end 
+```
+
+#### Get Records by ID
+
+```Ruby
+  identifiers = client.records.collect{|r| r.identifier}
+
+  single_record = client.record(identifiers.first).first
+  multiple_records = client.record(identifiers.join(","))
+```
 
 ## Contributing
 
