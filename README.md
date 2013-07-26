@@ -1,6 +1,8 @@
 # RCSW
 
-TODO: Write a gem description
+A ruby library client for the [OGC Catalogue Service](http://www.opengeospatial.org/standards/cat).  Specifically developed to consume records presented by the ESRI Geoportal CSW feed.
+
+Developed by [GINA](http://gina.alaska.edu) for use in by the [North Slope Science Initiative](http://northslope.org)'s [Catalog](http://catalog.northslope.org) and the [EPSCoR-ACE](http://epscor.alaska.edu) [Southcentral Testcase Catalog](http://seakgis.alaska.edu/).
 
 ## Installation
 
