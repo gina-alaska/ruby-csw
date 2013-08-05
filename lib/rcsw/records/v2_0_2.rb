@@ -93,6 +93,9 @@ module RCSW
             },
             'type' => lambda { |node, obj|
               obj.type = child_value(node)
+            },
+            'modified' => lambda {|node, obj|
+              obj.modified = child_value(node)
             }
           }
         })
