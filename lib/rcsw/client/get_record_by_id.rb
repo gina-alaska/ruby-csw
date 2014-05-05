@@ -31,12 +31,11 @@ module RCSW
         records = []
         
         while count < @ids.count
-          id_string = @ids[count...count+@per_page].join(',')
-          @request_params ||= {
+          @request_params = {
             'ElementSetName' => 'full',
             'outputFormat' => 'application/xml',
             'outputSchema' => "http://www.opengis.net/cat/csw/2.0.2",
-            'Id' => id_string
+            'Id' => @ids[(count...(count+@per_page))].join(',')
           }
         
           format = RCSW::Records::Base.new
