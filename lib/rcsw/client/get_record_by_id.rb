@@ -22,27 +22,30 @@ module RCSW
       
       def execute
         raise "GetRecordById not supported by target CSW" unless self.supported?
-        
-        results = self.fetch_records
-        records = results.records || []
-        records
+        self.fetch_records
       end
       
       def fetch_records
-        @per_page ||= 100
-        @request_params ||= {
-          'ElementSetName' => 'full',
-          'outputFormat' => 'application/xml',
-          'outputSchema' => "http://www.opengis.net/cat/csw/2.0.2",
-          'Id' => @ids.join(",")
-        }
+        @per_page ||= 10
+        count = 0
+        records = []
         
-        format = RCSW::Records::Base.new
-        request_url = self.build_url(@csw_url, 'GetRecordById', capabilities.version, @request_params)
+        while count < @ids.count
+          id_string = @ids[count...count+@per_page].join(',')
+          @request_params ||= {
+            'ElementSetName' => 'full',
+            'outputFormat' => 'application/xml',
+            'outputSchema' => "http://www.opengis.net/cat/csw/2.0.2",
+            'Id' => id_string
+          }
         
-        request = format.read(Curl.get(request_url).body_str)
-      
-        request
+          format = RCSW::Records::Base.new
+          request_url = self.build_url(@csw_url, 'GetRecordById', capabilities.version, @request_params)
+          records += format.read(Curl.get(request_url).body_str).records
+          count += @per_page
+        end
+        
+        records
       end
       
       def count

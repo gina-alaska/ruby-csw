@@ -32,6 +32,7 @@ module RCSW
           'startPosition' => 1,
           'maxRecords' => @per_page,
           'resultType' => 'results',
+          'ElementSetName' => 'full',
           'outputFormat' => 'application/xml',
           'outputSchema' => "http://www.opengis.net/cat/csw/2.0.2"
         }
@@ -41,7 +42,7 @@ module RCSW
         
         request = format.read(Curl.get(request_url).body_str)
         
-        return false if request.records.empty?
+        return false if request.records.nil? or request.records.empty?
         
         @request_params.merge!({ 'startPosition' => request.status.next_record })        
         request
