@@ -10,7 +10,15 @@ module RCSW
           data = StringIO.new(data)
         end
         xml_parser = LibXML::XML::Parser.io(data)
-        xml = xml_parser.parse
+        begin
+          xml = xml_parser.parse
+        rescue LibXML::XML::Error => e
+          puts "Error parsing response from server, server returned...."
+          puts data.rewind()
+          puts data.read()
+          
+          raise e
+        end
         root = xml.root
         
         version = get_version(root)
